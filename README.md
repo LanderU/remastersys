@@ -1,14 +1,6 @@
 remastersys
 ===========
 
-## Howto install
-
-Ubuntu 14.04/12.04:
-
-    sudo add-apt-repository ppa:mutse-young/remastersys
-    sudo apt-get update
-    sudo apt-get install remastersys remastersys-gtk
-
 ## Screenshot
 
 ### Actions
