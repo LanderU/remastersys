@@ -392,9 +392,14 @@ log_msg "$WORKDIR is on a $DIRTYPE filesystem"
     if [ ! -f /etc/remastersys/customisolinux/isolinux.cfg ]; then
         log_msg "Creating isolinux setup for the live system"
         find /usr -name 'isolinux.bin' -exec cp {} $WORKDIR/ISOTMP/isolinux/ \;
-        #find fix for vesamenu.32 provided by Krasimir S. Stefanov <lokiisyourmaster@gmail.com>
-        #VESAMENU=`find /usr -print0 | grep -FzZ "syslinux/vesamenu.c32"`
-        VESAMENU="/usr/lib/syslinux/vesamenu.c32"
+        
+        if [ "`ls /usr/lib/syslinux/ | grep vesamenu.c32`" ]; then
+        	VESAMENU="/usr/lib/syslinux/vesamenu.c32"
+        else
+        	#find fix for vesamenu.32 provided by Krasimir S. Stefanov <lokiisyourmaster@gmail.com>
+        	VESAMENU=`find /usr -print0 | grep -FzZ "syslinux/vesamenu.c32"`
+        fi
+        
         cp $VESAMENU $WORKDIR/ISOTMP/isolinux/ 
         # setup isolinux for the livecd
         VERSION=`lsb_release -r | awk '{print $2}' | awk -F "." '{print $1}'`
